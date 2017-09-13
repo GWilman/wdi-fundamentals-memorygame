@@ -42,7 +42,7 @@ a:hover {
 }
 
 main {
-  width: 850px;
+  width: 60%;
   margin: 35px auto;
 }
 
@@ -61,11 +61,12 @@ p {
 }
 
 img {
-  margin: 40px 8px 0 8px;
+  margin: 40px 8px 10px 8px;
+  cursor: pointer;
 }
 
 button {
-  margin: 40px auto;
+  margin: 10px auto;
   height: 60px;
   width: 200px;
   font-family: Raleway, sans-serif;
@@ -91,6 +92,11 @@ footer {
 
 p {
   font-family: Raleway, sans-serif;
+}
+
+span {
+  font-weight: 600;
+  font-size: 24px;
 }
 
 .copyright {

@@ -23,10 +23,18 @@ cardImage: "images/king-of-diamonds.png"
 
 var cardsInPlay = [];
 
+var score = 0;
+
+var scoreUpdate = function() {
+  document.getElementById("Count").textContent = score;
+}
+
 var checkForMatch = function() {
   if (cardsInPlay[0] === cardsInPlay[1]) {
     alert("You found a match!");
-
+    score++;
+    console.log(score);
+    scoreUpdate();
   } else {
     alert("Sorry, try again.");
   }
@@ -69,3 +77,5 @@ var resetBoard = function() {
 }
 
 createBoard();
+
+scoreUpdate();
