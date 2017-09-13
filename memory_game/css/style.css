@@ -17,7 +17,7 @@ h1 {
   margin: 0;
 }
 
-h1, a {
+h1, a, button {
   text-transform: uppercase;
   text-decoration: none;
 }
@@ -62,6 +62,21 @@ p {
 
 img {
   margin: 40px 8px 0 8px;
+}
+
+button {
+  margin: 40px auto;
+  height: 60px;
+  width: 200px;
+  font-family: Raleway, sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: 1px;
+  color: #FFF;
+  cursor: pointer;
+  border-radius: 10px;
+  background-color: #00A6B3;
+  border: none;
 }
 
 footer {
