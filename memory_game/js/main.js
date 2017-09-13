@@ -47,11 +47,25 @@ var flipCard = function() {
 var createBoard = function() {
 	for (i = 0; i < cards.length; i++) {
 		var cardElement = document.createElement("img");
+    var resetButton = document.getElementsByTagName("button")[0];
 		cardElement.setAttribute("src", "images/back.png");
     cardElement.setAttribute("data-id", i);
     cardElement.addEventListener("click", flipCard);
+    resetButton.addEventListener("click", resetBoard);
     document.getElementById("game-board").appendChild(cardElement);
 	}
+}
+
+var resetBoard = function() {
+  var playedCards = document.getElementById("game-board");
+  var cardList = document.getElementsByTagName("img");
+  var i = 3;
+  while (i >= 0) {
+    playedCards.removeChild(cardList[i]);
+    cardsInPlay.pop();
+    i--;
+  }
+  createBoard();
 }
 
 createBoard();
