@@ -25,21 +25,45 @@ var cardsInPlay = [];
 
 var score = 0;
 
+var modal = document.getElementById("myModal");
+
+// this function adds 1 to the score each time the user finds a match.
 var scoreUpdate = function() {
-  document.getElementById("Count").textContent = score;
+  document.getElementById("count").textContent = score;
 }
 
-var checkForMatch = function() {
-  if (cardsInPlay[0] === cardsInPlay[1]) {
-    alert("You found a match!");
-    score++;
-    console.log(score);
-    scoreUpdate();
-  } else {
-    alert("Sorry, try again.");
+/* this funtion shuffles the objects in the cards array. I'm not sure if it's mathematically sound, 
+(I I don't think it's a Fisher-Yates shuffle) but it seems to do the job. */
+var shuffle = function() {
+  var i = 3;
+  var j = Math.floor((Math.random() * i));
+  while (i >= 0) {
+    var temp = cards[j];
+    cards[j] = cards[i];
+    cards[i] = temp;
+    i--;
   }
 }
 
+// checks for card match and prompts modal outcome box, if successful match triggers score update and shuffle (no shuffle if no match).
+var checkForMatch = function() {
+  modal.style.display = "block";
+  var outcome = document.createElement("p");
+  outcome.setAttribute("id", "outcome");
+  outcome.setAttribute("class", "modalAlert")
+  document.getElementById("outcomeAlert").appendChild(outcome);
+  if (cardsInPlay[0] === cardsInPlay[1]) {
+    outcome.textContent = "You found a match!";
+    score++;
+    console.log(score);
+    scoreUpdate();
+    shuffle();
+  } else {
+    outcome.textContent = "Sorry, try again.";
+  }
+}
+
+// flips card by changing img src attribute, if two cards flipped it triggers checkForMatch function.
 var flipCard = function() {
 	var cardId = this.getAttribute("data-id");
   this.setAttribute('src', cards[cardId].cardImage);
@@ -52,6 +76,8 @@ var flipCard = function() {
   }
 }
 
+
+// creates img elements and sets to back of card for all. Also sets event listeners for card flip and reset/continue playing button.
 var createBoard = function() {
 	for (i = 0; i < cards.length; i++) {
 		var cardElement = document.createElement("img");
@@ -64,6 +90,7 @@ var createBoard = function() {
 	}
 }
 
+// removes card image elements and clears cardsInPlay array. Hides modal box and triggers createBoard function.
 var resetBoard = function() {
   var playedCards = document.getElementById("game-board");
   var cardList = document.getElementsByTagName("img");
@@ -73,9 +100,18 @@ var resetBoard = function() {
     cardsInPlay.pop();
     i--;
   }
+  modal.style.display = "none";
+  var outcomeRemove = document.getElementById("outcome");
+  var outcomeContainer = document.getElementById("outcomeAlert");
+  outcomeContainer.removeChild(outcomeRemove);
   createBoard();
 }
+
+
+
+shuffle();
 
 createBoard();
 
 scoreUpdate();
+
