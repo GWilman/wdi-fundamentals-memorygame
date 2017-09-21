@@ -30,10 +30,12 @@ var modal = document.getElementById("myModal");
 // this function adds 1 to the score each time the user finds a match.
 var scoreUpdate = function() {
   document.getElementById("count").textContent = score;
+  if (score === 5) {
+    bonus();
+  }
 }
 
-/* this funtion shuffles the objects in the cards array. I'm not sure if it's mathematically sound, 
-(I I don't think it's a Fisher-Yates shuffle) but it seems to do the job. */
+// this funtion shuffles the objects in the cards array.
 var shuffle = function() {
   var i = 3;
   var j = Math.floor((Math.random() * i));
@@ -55,6 +57,9 @@ var checkForMatch = function() {
   if (cardsInPlay[0] === cardsInPlay[1]) {
     outcome.textContent = "You found a match!";
     score++;
+    if (score > 5) {
+      score++;
+    }
     console.log(score);
     scoreUpdate();
     shuffle();
@@ -74,6 +79,7 @@ var flipCard = function() {
   if (cardsInPlay.length === 2) {
     checkForMatch();
   }
+  this.removeEventListener("click", flipCard);
 }
 
 
@@ -81,11 +87,15 @@ var flipCard = function() {
 var createBoard = function() {
 	for (i = 0; i < cards.length; i++) {
 		var cardElement = document.createElement("img");
-    var resetButton = document.getElementsByTagName("button")[0];
+    var startButton = document.getElementById("startGame");
+    var resetButton = document.getElementById("resetButton");
+    var replayButton = document.getElementById("playAgain");
 		cardElement.setAttribute("src", "images/back.png");
     cardElement.setAttribute("data-id", i);
     cardElement.addEventListener("click", flipCard);
+    startButton.addEventListener("click", runClock);
     resetButton.addEventListener("click", resetBoard);
+    replayButton.addEventListener("click", playAgain);
     document.getElementById("game-board").appendChild(cardElement);
 	}
 }
@@ -107,11 +117,64 @@ var resetBoard = function() {
   createBoard();
 }
 
+// initiates bonus round by removing instructions and replacing with flashing text and changing background color.
+var bonus = function() {
+  var bonusElement = document.createElement("p");
+  var body = document.getElementsByTagName("body")[0];
+  var whiteCount = document.getElementById("count");
+  var whiteClock = document.getElementsByTagName("h3")[0];
+  bonusElement.setAttribute("class", "bonusStyle");
+  bonusElement.textContent = "BONUS ROUND! x2 POINTS!"
+  body.style.background = "#F15B31";
+  whiteCount.style.color = "#FFF";
+  whiteClock.style.color = "#FFF";
+  document.getElementById("bonus").appendChild(bonusElement);
+}
 
+var runClock = function() {
+  var countdownElement = document.getElementById('clock'), seconds = 40, second = 0, interval;
+  interval = setInterval(function() {
+    countdownElement.firstChild.textContent = (seconds - second);
+    if (second >= seconds) {
+      clearInterval(interval);
+      countdownElement.firstChild.textContent = "Time's Up!";
+      var endBonus = document.getElementById("bonus");
+      var playAgain = document.getElementById("resetGame");
+      var body = document.getElementsByTagName("body")[0];
+      endBonus.style.display = "none";
+      playAgain.style.display = "block";
+      body.style.background = "#FFF";
+      var colorCount = document.getElementById("count");
+      var colorClock = document.getElementsByTagName("h3")[0];
+      colorCount.style.color = "#000";
+      colorClock.style.color = "#F15B31";
+      var yourScore = document.createElement("h4");
+      yourScore.textContent = "Final Score: " + score;
+      document.getElementById("finalScore").appendChild(yourScore);
+      var hideScore = document.getElementById("scoreCounter");
+      hideScore.style.display = "none";
+      var card1 = document.getElementsByTagName("img")[0];
+      card1.removeEventListener("click", flipCard);
+      var card2 = document.getElementsByTagName("img")[1];
+      card2.removeEventListener("click", flipCard);
+      var card3 = document.getElementsByTagName("img")[2];
+      card3.removeEventListener("click", flipCard);
+      var card4 = document.getElementsByTagName("img")[3];
+      card4.removeEventListener("click", flipCard);
+    }
+    second++;
+  }, 1000);
+  var instructions = document.getElementById("instructions");
+  var startButton = document.getElementById("startGame");
+  instructions.style.display = "none";
+  startButton.style.display = "none";
+}
 
+var playAgain = function() {
+  location.reload();
+}
+
+// on page load: shuffles cards, sets out board and updates the current score to 0 in the html.
 shuffle();
-
 createBoard();
-
 scoreUpdate();
-

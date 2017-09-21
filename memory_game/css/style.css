@@ -59,6 +59,26 @@ h2 {
   color: #0D2C40;
 }
 
+h3 {
+  font-family: Raleway, sans-serif;
+  font-weight: 800;
+  font-size: 46px;
+  letter-spacing: 1px;
+  color: #F15B31;
+  margin: 0 auto;
+}
+
+h4 {
+  font-family: Raleway, sans-serif;
+  font-weight: 800;
+  font-size: 60px;
+  color: #FFF;
+  background: #0D2C40;
+  margin: 20px auto 10px auto;
+  padding: 10px 20px;
+  display: inline-block;
+}
+
 p {
   font-family: "Droid serif", serif;
   line-height: 26px;
@@ -68,6 +88,7 @@ p {
 img {
   margin: 40px 8px 10px 8px;
   cursor: pointer;
+  border-radius: 7px;
 }
 
 button {
@@ -83,6 +104,18 @@ button {
   border-radius: 10px;
   background-color: #FFF;
   border: none;
+  padding-top: 4px;
+  line-height: 20px;
+}
+
+.start, .replay {
+  font-size: 30px;
+  padding: 0;
+  margin-bottom: -10px;
+}
+
+.start:hover, .replay:hover {
+  text-decoration: underline;
 }
 
 footer {
@@ -106,7 +139,9 @@ p {
 
 #count {
   font-weight: 800;
-  font-size: 36px;
+  font-size: 52px;
+  color: #000;
+  vertical-align: top;
 }
 
 .copyright {
@@ -150,6 +185,36 @@ p {
   margin: 15% auto;
   padding: 10px 50px 20px 70px;
   border-radius: 10px;
-  width: 45%;
+  width: 35%;
   display: inline-block;
+}
+
+.modalContent {
+  animation: grow .25s cubic-bezier(0,0,1,1) 1;
+}
+
+@keyframes grow {
+  0% {transform: scale(0,0);}
+  50% {transform: scale(0.5,0.5);}
+  100% {transform: scale(1,1);}
+}
+
+.bonusStyle {
+  font-size: 50px;
+  color: #FFF;
+  font-weight: 800;
+  margin: 40px auto;
+  padding-top: 20px;
+}
+
+.bonusStyle {
+  animation: flash .2s cubic-bezier(0,0,1,1) infinite;
+}
+
+@keyframes flash {
+  50% {opacity: 0;}
+}
+
+#resetGame{
+  display: none;
 }
