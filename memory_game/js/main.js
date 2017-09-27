@@ -132,7 +132,7 @@ var bonus = function() {
 }
 
 var runClock = function() {
-  var countdownElement = document.getElementById('clock'), seconds = 40, second = 0, interval;
+  var countdownElement = document.getElementById('clock'), seconds = 39, second = 0, interval;
   interval = setInterval(function() {
     countdownElement.firstChild.textContent = (seconds - second);
     if (second >= seconds) {

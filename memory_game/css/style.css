@@ -126,6 +126,9 @@ footer {
   font-size: 14px;
   letter-spacing: .08em;
   font-weight: 500;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 
 p {
@@ -215,6 +218,6 @@ p {
   50% {opacity: 0;}
 }
 
-#resetGame{
+#resetGame {
   display: none;
 }
